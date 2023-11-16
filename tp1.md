@@ -48,3 +48,5 @@ CMD ["apache2ctl", "-D", "FOREGROUND"]
 ```
 
 On build l'image avec `sudo docker build . -t dockerfile`
+
+Et on run avec `sudo docker run -d -p 8888:80 --name my_own_ubuntu -v /home/antna/travail/index.html:/var/www/html/index.html dockerfile`
