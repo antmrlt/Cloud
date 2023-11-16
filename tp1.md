@@ -50,3 +50,48 @@ CMD ["apache2ctl", "-D", "FOREGROUND"]
 On build l'image avec `sudo docker build . -t dockerfile`
 
 Et on run avec `sudo docker run -d -p 8888:80 --name my_own_ubuntu -v /home/antna/travail/index.html:/var/www/html/index.html dockerfile`
+
+🌞 **Installez un WikiJS** en utilisant Docker
+
+- WikiJS a besoin d'une base de données pour fonctionner
+- il faudra donc deux conteneurs : un pour WikiJS et un pour la base de données
+- référez-vous à la doc officielle de WikiJS, c'est tout guidé
+
+**File docker-compose.yml**
+
+```
+version: "3"
+services:
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: wiki
+      POSTGRES_PASSWORD: wikijsrocks
+      POSTGRES_USER: wikijs
+    logging:
+      driver: "none"
+    restart: unless-stopped
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  wiki:
+    image: ghcr.io/requarks/wiki:2
+    depends_on:
+      - db
+    environment:
+      DB_TYPE: postgres
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: wikijs
+      DB_PASS: wikijsrocks
+      DB_NAME: wiki
+    restart: unless-stopped
+    ports:
+      - "80:3000"
+
+volumes:
+  db-data:
+  ```
+
+  ![Wkijs create home page](/wikijs.png "Titre de l'image").
