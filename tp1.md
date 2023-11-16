@@ -25,3 +25,26 @@ server {
   root /usr/share/nginx/html;
 }
 ```
+
+🌞 **Construire votre propre image**
+
+- image de base (celle que vous voulez : debian, alpine, ubuntu, etc.)
+  - une image du Docker Hub
+  - qui ne porte aucune application par défaut
+- vous ajouterez
+  - mise à jour du système
+  - installation de Apache (pour les systèmes debian, le serveur Web apache s'appelle `apache2` et non pas `httpd` comme sur Rocky)
+  - page d'accueil Apache HTML personnalisée
+
+**dockerfile**
+```
+FROM ubuntu
+
+RUN apt-get update && apt-get upgrade -y
+
+RUN apt install -y apache2
+
+CMD ["apache2ctl", "-D", "FOREGROUND"]
+```
+
+On build l'image avec `sudo docker build . -t dockerfile`
