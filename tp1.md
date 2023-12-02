@@ -95,3 +95,35 @@ volumes:
   ```
 
   ![Wkijs create home page](/wikijs.png "Titre de l'image").
+
+
+🌞 **Vous devez :**
+
+- construire une image qui
+  - contient `python3`
+  - contient l'application et ses dépendances
+  - lance l'application au démarrage du conteneur
+
+```
+FROM ubuntu
+
+RUN apt update -y
+
+RUN apt-get install -y python3 git python3-pip
+
+RUN git clone https://gitlab.com/it4lik/efrei-cloud-2023.git
+
+WORKDIR /efrei-cloud-2023/tp/1/python-app
+
+RUN pip3 install -r requirements
+
+EXPOSE 8888
+
+CMD ["python", "app.py"]
+```
+
+- écrire un `docker-compose.yml`
+  - lance l'application
+  - lance un Redis
+    - utilise l'image de *library*
+    - a un alias `db`
