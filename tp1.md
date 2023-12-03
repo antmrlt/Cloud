@@ -111,19 +111,53 @@ RUN apt update -y
 
 RUN apt-get install -y python3 git python3-pip
 
-RUN git clone https://gitlab.com/it4lik/efrei-cloud-2023.git
+RUN git clone https://github.com/antmrlt/python-app.git
 
-WORKDIR /efrei-cloud-2023/tp/1/python-app
+WORKDIR /python-app
 
 RUN pip3 install -r requirements
 
 EXPOSE 8888
 
-CMD ["python", "app.py"]
+RUN chmod +x app.py
+
+CMD ["python3", "app.py"]
 ```
+On build grace à `docker build . -t pythonapp`
 
 - écrire un `docker-compose.yml`
   - lance l'application
   - lance un Redis
     - utilise l'image de *library*
     - a un alias `db`
+
+```
+version: '3'
+
+services:
+  python-app:
+    build:
+      context: .
+    image: pythonapp
+    container_name: python-app-container
+    restart: always
+    ports:
+      - "8888:8888"
+    depends_on:
+      - redis
+    networks:
+      - my-network
+
+  redis:
+    image: "redis:latest"
+    container_name: redis-container
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
+```
