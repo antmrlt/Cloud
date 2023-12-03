@@ -185,3 +185,14 @@ antna:$6$rLoAV.QR1JtPPWax$qMiioqI8AUgOeZ/MMM7UKtxlJj4TgPyn/NAYN5/W3nGRLf1IVYbGkA
 lxd:!:19675::::::
 sshd:*:19676:0:99999:7:::
 ```
+
+🌞 Utilisez Trivy
+
+- effectuez un scan de vulnérabilités sur des images précédemment mises en oeuvre :
+
+  - celle de WikiJS que vous avez build
+  - celle de sa base de données
+  - l'image de Apache que vous avez build
+  - l'image de NGINX officielle utilisée dans la première partie
+
+On utilise la commande `trivy image <subject>`
